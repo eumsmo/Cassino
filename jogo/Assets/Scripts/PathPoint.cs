@@ -5,6 +5,10 @@ using UnityEngine;
 public class PathPoint : MonoBehaviour {
     public List<PathPoint> paths = new List<PathPoint>();
 
+    public PathPoint GetPath(int id) {
+        return paths[id];
+    }
+
     void OnDrawGizmos() {
         if (paths == null) return;
 

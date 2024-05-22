@@ -294,7 +294,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 414590940264957717, guid: a95b86744bddf1e4e808c357511f8edd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 525345079}
   m_SourcePrefab: {fileID: 100100000, guid: a95b86744bddf1e4e808c357511f8edd, type: 3}
 --- !u!4 &227647944 stripped
 Transform:
@@ -684,6 +688,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paths: []
+--- !u!1 &525345076 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 414590940264957717, guid: a95b86744bddf1e4e808c357511f8edd,
+    type: 3}
+  m_PrefabInstance: {fileID: 218809684}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &525345079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525345076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce159cef4f741d47812c560409386bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: {fileID: 762219620}
 --- !u!1001 &533158930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1112,8 +1135,8 @@ Camera:
   m_GameObject: {fileID: 1118423085}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1835,6 +1858,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carta
       objectReference: {fileID: 0}
+    - target: {fileID: 1831924479981949271, guid: 1755d54222607124e885b6e5c0e29f69,
+        type: 3}
+      propertyPath: to
+      value: 
+      objectReference: {fileID: 524343137}
+    - target: {fileID: 1831924479981949271, guid: 1755d54222607124e885b6e5c0e29f69,
+        type: 3}
+      propertyPath: from
+      value: 
+      objectReference: {fileID: 762219620}
     - target: {fileID: 2613578786117181793, guid: 1755d54222607124e885b6e5c0e29f69,
         type: 3}
       propertyPath: m_LocalPosition.x
