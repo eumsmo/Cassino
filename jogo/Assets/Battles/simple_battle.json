@@ -20,7 +20,7 @@
             "variables": ["A", "B", "C", "D", "E"],
             "translate": "random_order",
             "attack": [
-                {"path": "A", "delay": 0},
+                {"path": "A", "delay": 0.5},
                 {"path": "B", "delay": 0.5},
                 {"path": "C", "delay": 0.5},
                 {"path": "D", "delay": 0.2},
