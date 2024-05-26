@@ -1,0 +1,33 @@
+{
+    "version": "0.0.1",
+    "paths": [1, 2, 3, 4, 5],
+    "line": [
+        0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
+    ],
+    "attacks": [
+        {
+            "type": "normal",
+            "attack": [
+                {"path": 1, "delay": 0},
+                {"path": 2, "delay": 0.5},
+                {"path": 3, "delay": 0.5},
+                {"path": 4, "delay": 0.2},
+                {"path": 5, "delay": 0.2}
+            ]
+        },
+        {
+            "type": "custom",
+            "variables": ["A", "B", "C", "D", "E"],
+            "translate": "random_order",
+            "attack": [
+                {"path": "A", "delay": 0},
+                {"path": "B", "delay": 0.5},
+                {"path": "C", "delay": 0.5},
+                {"path": "D", "delay": 0.2},
+                {"path": "E", "delay": 0.2}
+            ]
+        }
+    ]
+}
+
+

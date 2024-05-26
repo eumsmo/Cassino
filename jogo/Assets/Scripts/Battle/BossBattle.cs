@@ -8,7 +8,7 @@ public class Attack {
 }
 
 public interface IAttacker {
-    Attack? GetNext();
+    Attack GetNext();
 }
 
 public class AtaqueSequencial : IAttacker {
@@ -33,7 +33,7 @@ public class AtaqueSequencial : IAttacker {
         }
     }
 
-    public Attack? GetNext() {
+    public Attack GetNext() {
         if (index >= ids.Length) return null;
         
         Attack ataque = new Attack();
@@ -48,19 +48,35 @@ public class AtaqueSequencial : IAttacker {
     }
 }
 
+
 public class BossBattle : MonoBehaviour {
     public AtaqueSequencial ataqueGroup;
     public PathPoint path;
+    public PathFollower followerPrefab;
+
+    public AtaqueSequencial[] ataques;
+    int index = 0;
 
     float timer = 0;
-    Attack? currentAttack;
+    Attack currentAttack;
 
     void Start() {
-        ataqueGroup = new AtaqueSequencial("12345", 0.5f);
+        // ataqueGroup = new AtaqueSequencial("12345", 0.5f);
+    }
+
+    public void SetAtaqueGroup(AtaqueSequencial[] ataques) {
+        this.ataques = ataques;
+        index = 0;
     }
 
     void FixedUpdate() {
-        if (ataqueGroup == null) return;
+        if (ataqueGroup == null) {
+            if (ataques == null) return;
+            if (index >= ataques.Length) return;
+
+            ataqueGroup = ataques[index];
+            index++;
+        }
         if (currentAttack == null) {
             currentAttack = ataqueGroup.GetNext();
     
@@ -84,8 +100,9 @@ public class BossBattle : MonoBehaviour {
         if (currentAttack == null) return;
 
         PathPoint point = path.GetPath(currentAttack.id - 1);
-        Debug.Log(point);
-        Debug.Log(currentAttack.id);
+        GameObject carta = Instantiate(followerPrefab.gameObject, transform.position, transform.rotation);
+        PathFollower follower = carta.GetComponent<PathFollower>();
+        follower.SetPath(path, point);
 
         currentAttack = null;
     }

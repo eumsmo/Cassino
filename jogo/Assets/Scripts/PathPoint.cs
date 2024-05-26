@@ -5,9 +5,23 @@ using UnityEngine;
 public class PathPoint : MonoBehaviour {
     public List<PathPoint> paths = new List<PathPoint>();
 
+    public bool matchRotation = false;
+    public bool transitionRotation = false;
+
     public PathPoint GetPath(int id) {
         return paths[id];
     }
+
+    public void OnEnter(PathFollower follower) {
+        gameObject.SendMessage("OnPathEnter", follower, SendMessageOptions.DontRequireReceiver);
+    }
+
+    public void OnExit(PathFollower follower) {
+        gameObject.SendMessage("OnPathExit", follower, SendMessageOptions.DontRequireReceiver);
+    }
+
+
+    // Gizmos 
 
     void OnDrawGizmos() {
         if (paths == null) return;
