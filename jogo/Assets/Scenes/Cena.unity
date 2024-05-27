@@ -16523,10 +16523,19 @@ MonoBehaviour:
   raio: 3
   offset: {x: 0, y: 0, z: -1.5}
   falas:
-  - tipo: 0
-    texto: "Esse \xE9 um teste"
-  - tipo: 0
-    texto: Igual todos os outros
+  - falas:
+    - tipo: 0
+      texto: Bem Vindo ao Cassino no Fim do Mundo!
+    - tipo: 0
+      texto: "\xC9 a sua primeira vez aqui, n\xE3o \xE9?"
+    - tipo: 0
+      texto: "N\xE3o se preocupe, irei arranjar um cart\xE3o de membro para voc\xEA."
+    - tipo: 0
+      texto: Um estante
+  - falas:
+    - tipo: 0
+      texto: Um estante
+  index: 0
 --- !u!1 &1375561954
 GameObject:
   m_ObjectHideFlags: 0
@@ -19758,6 +19767,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1642237496}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1646639716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1646639718}
+  - component: {fileID: 1646639717}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1646639717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646639716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c52b8b5910d8864daa11bdb8069dee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1646639718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646639716}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.3087442, y: -4.4228144, z: 5.323515}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1650261060
 GameObject:
   m_ObjectHideFlags: 0
@@ -26275,3 +26328,4 @@ SceneRoots:
   - {fileID: 647006928}
   - {fileID: 1161773276}
   - {fileID: 1447639278}
+  - {fileID: 1646639718}

@@ -10,11 +10,19 @@ public class Fala {
     public string texto;
 }
 
-public class Dialogavel : Interagivel {
+[System.Serializable]
+public class Falas {
     public Fala[] falas;
+}
+
+public class Dialogavel : Interagivel {
+    public Falas[] falas;
+    public int index = 0;
 
 
     public override void Interact() {
-        UIController.dialogo.StartDialogo(falas);
+        if (index >= falas.Length) index = falas.Length - 1;
+        UIController.dialogo.StartDialogo(falas[index].falas);
+        index++;
     }
 }

@@ -14,7 +14,12 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update() {
         Matrix4x4 rotation = Matrix4x4.Rotate(Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0));
-        input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        Vector2 move = GameManager.instance.controls.Game.Move.ReadValue<Vector2>();
+        float horizontal = move.x;
+        float vertical = move.y;
+
+        input = new Vector3(horizontal, 0, vertical);
         input = rotation.MultiplyVector(input);
     }
 

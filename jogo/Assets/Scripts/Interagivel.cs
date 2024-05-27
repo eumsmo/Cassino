@@ -7,20 +7,16 @@ public class Interagivel : MonoBehaviour {
     public float raio = 1.0f;
     public Vector3 offset;
 
+    protected Controls controls;
+
     void Start() {
         playerLayer = LayerMask.GetMask("Player");
-    }
-
-    void FixedUpdate() {
-        // Check if the player is in range
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position + offset, raio, playerLayer);
-
-        if (hitColliders.Length == 0) return;
         
-        // Check if the player is pressing the interact button
-        if (Input.GetKeyDown(KeyCode.E)) {
+        GameManager.instance.controls.Game.Interact.performed += ctx => {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position + offset, raio, playerLayer);
+            if (hitColliders.Length == 0) return;
             Interact();
-        }
+        };
     }
 
     public virtual void Interact() {
