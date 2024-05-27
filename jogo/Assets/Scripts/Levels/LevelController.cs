@@ -16,7 +16,7 @@ public class VariablesSystem {
             this.value = value;
         }
 
-        public Type GetType() {
+        public Type GetVariableType() {
             return type;
         }
 
@@ -42,13 +42,21 @@ public class VariablesSystem {
     }
 
     Dictionary<string, Variable> variables = new Dictionary<string, Variable>();
+    Dictionary<string, System.Action<object>> watchers = new Dictionary<string, System.Action<object>>();
 
     void SetVariable(string name, Type type, object value) {
         if (variables.ContainsKey(name)) {
             variables[name] = new Variable(name, type, value);
+            if (watchers.ContainsKey(name)) {
+                watchers[name](value);
+            }
         } else {
             variables.Add(name, new Variable(name, type, value));
         }
+    }
+
+    public void SetVariable(string name, object value) {
+        SetVariable(name, GetObjectType(value), value);
     }
 
     public void SetInt(string name, int value) {
@@ -86,11 +94,74 @@ public class VariablesSystem {
     public object GetVariable(string name) {
         return variables[name].GetValue();
     }
+
+    public void Watch(string name, System.Action<object> action) {
+        if (watchers.ContainsKey(name)) {
+            watchers[name] += action;
+        } else {
+            watchers.Add(name, action);
+        }
+    }
+
+    public void Unwatch(string name, System.Action<object> action) {
+        if (watchers.ContainsKey(name)) {
+            watchers[name] -= action;
+        }
+    }
+
+    public static Type GetObjectType(object value) {
+        if (value is int) {
+            return Type.INT;
+        } else if (value is float) {
+            return Type.FLOAT;
+        } else if (value is string) {
+            return Type.STRING;
+        } else if (value is bool) {
+            return Type.BOOL;
+        } else {
+            return Type.INT;
+        }
+    }
+}
+
+public class StoredVariable {
+    string name;
+
+    public StoredVariable(string name, object value) {
+        this.name = name;
+        LevelController.instance.SetVariable(name, value);
+    }
+
+    public StoredVariable(string name) {
+        this.name = name;
+    }
+
+    public string GetName() {
+        return name;
+    }
+
+    public object Get() {
+        return LevelController.instance.GetVariable(name);
+    }
+
+    public void Set(object value) {
+        LevelController.instance.SetVariable(name, value);
+    }
+
+    public void OnChange(System.Action<object> action) {
+        LevelController.instance.Watch(name, action);
+    }
+
+    public void StopChange(System.Action<object> action) {
+        LevelController.instance.Unwatch(name, action);
+    }
 }
 
 public class LevelController : MonoBehaviour {
     public static LevelController instance;
     VariablesSystem variables = new VariablesSystem();
+
+    public string levelName;
 
     void Awake() {
         instance = this;
@@ -112,7 +183,19 @@ public class LevelController : MonoBehaviour {
         variables.SetBool(name, value);
     }
 
+    public void SetVariable(string name, object value) {
+        variables.SetVariable(name, value);
+    }
+
     public object GetVariable(string name) {
         return variables.GetVariable(name);
+    }
+    
+    public void Watch(string name, System.Action<object> action) {
+        variables.Watch(name, action);
+    }
+
+    public void Unwatch(string name, System.Action<object> action) {
+        variables.Unwatch(name, action);
     }
 }
