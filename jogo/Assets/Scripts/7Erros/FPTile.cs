@@ -10,9 +10,14 @@ public class FPTile : Tile {
             FPPlayer player = BattleManager.instance.player.GetComponent<FPPlayer>();
             Direction facingDirection = player.facingDirection;
             return base.GetConnection(facingDirection);
+        } else if (direction == Direction.Interact) {
+            TileInteragivel tileInteragivel = GetComponent<TileInteragivel>();
+            if (tileInteragivel != null) {
+                tileInteragivel.Interact();
+            }
         }
 
-        return this;
+        return null;
     }
 
     protected void RotatePlayer(Direction direction) {

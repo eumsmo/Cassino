@@ -132,5 +132,15 @@ public class PlayerBattle : MonoBehaviour {
         }
     }
 
+    public void Teleport(Tile tile) {
+        currentTile = tile;
+        targetTile = null;
 
+        Collider collider = tile.transform.GetChild(0).GetComponent<Collider>();
+        Vector3 topOfCollider = collider.bounds.center + tile.transform.up * collider.bounds.extents.y;
+
+        transform.position = topOfCollider;
+
+        SetState(idleState);
+    }
 }

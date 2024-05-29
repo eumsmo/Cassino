@@ -12,7 +12,6 @@ public class FPPlayer : MonoBehaviour {
 
     public void Rotate(Direction direction) {
         facingDirection = direction;
-        Debug.Log("Rotating player to " + direction);
 
         switch (direction) {
             case Direction.Up:
@@ -28,5 +27,12 @@ public class FPPlayer : MonoBehaviour {
                 transform.rotation = Quaternion.Euler(rotationAxis * 270);
                 break;
         }
+    }
+
+    public void Teleport(Tile tile, Direction face) {
+        Rotate(face);
+
+        PlayerBattle playerBattle = GetComponent<PlayerBattle>();
+        playerBattle.Teleport(tile);
     }
 }
