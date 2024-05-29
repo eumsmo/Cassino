@@ -35,6 +35,14 @@ public class Tile : MonoBehaviour {
     public List<Connection> connections = new List<Connection>();
 
     public virtual Tile GetConnection(Direction direction) {
+        if (direction == Direction.Interact) {
+            TileInteragivel tileInteragivel = GetComponent<TileInteragivel>();
+            if (tileInteragivel != null) {
+                tileInteragivel.Interact();
+            }
+            return null;
+        }
+
         for (int i = 0; i < connections.Count; i++) {
             if (connections[i].direction == direction) {
                 return connections[i].tile as Tile;

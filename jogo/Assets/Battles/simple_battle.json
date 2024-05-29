@@ -9,10 +9,10 @@
             "type": "normal",
             "attack": [
                 {"path": 1, "delay": 0},
-                {"path": 2, "delay": 0.5},
-                {"path": 3, "delay": 0.5},
-                {"path": 4, "delay": 0.2},
-                {"path": 5, "delay": 0.2}
+                {"path": 2, "delay": 1},
+                {"path": 3, "delay": 1},
+                {"path": 4, "delay": 0.5},
+                {"path": 5, "delay": 0.5}
             ]
         },
         {
@@ -20,11 +20,11 @@
             "variables": ["A", "B", "C", "D", "E"],
             "translate": "random_order",
             "attack": [
-                {"path": "A", "delay": 0.5},
-                {"path": "B", "delay": 0.5},
-                {"path": "C", "delay": 0.5},
-                {"path": "D", "delay": 0.2},
-                {"path": "E", "delay": 0.2}
+                {"path": "A", "delay": 1},
+                {"path": "B", "delay": 1},
+                {"path": "C", "delay": 1},
+                {"path": "D", "delay": 0.5},
+                {"path": "E", "delay": 0.5}
             ]
         }
     ]
