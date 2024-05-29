@@ -95,6 +95,10 @@ public class VariablesSystem {
         return variables[name].GetValue();
     }
 
+    public bool Contains(string name) {
+        return variables.ContainsKey(name);
+    }
+
     public void Watch(string name, System.Action<object> action) {
         if (watchers.ContainsKey(name)) {
             watchers[name] += action;
@@ -189,6 +193,10 @@ public class LevelController : MonoBehaviour {
 
     public object GetVariable(string name) {
         return variables.GetVariable(name);
+    }
+
+    public bool ContainsVariable(string name) {
+        return variables.Contains(name);
     }
     
     public void Watch(string name, System.Action<object> action) {

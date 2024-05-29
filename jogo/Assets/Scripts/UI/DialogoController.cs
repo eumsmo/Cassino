@@ -16,8 +16,6 @@ public class DialogoController : MonoBehaviour {
     }
 
     public void StartDialogo(Fala[] falas) {
-        Debug.Log("Iniciando dialogo");
-
         this.falas = falas;
         index = 0;
 
