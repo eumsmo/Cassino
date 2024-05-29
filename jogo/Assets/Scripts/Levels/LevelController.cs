@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VariablesSystem {
-    public enum Type { INT, FLOAT, STRING, BOOL }
+    public enum Type { INT, FLOAT, STRING, BOOL, TRIGGER }
 
     class Variable {
         public string name;
@@ -39,6 +39,10 @@ public class VariablesSystem {
         public bool GetBool() {
             return (bool)value;
         }
+
+        public bool GetTrigger() {
+            return false;
+        }
     }
 
     Dictionary<string, Variable> variables = new Dictionary<string, Variable>();
@@ -47,11 +51,12 @@ public class VariablesSystem {
     void SetVariable(string name, Type type, object value) {
         if (variables.ContainsKey(name)) {
             variables[name] = new Variable(name, type, value);
-            if (watchers.ContainsKey(name)) {
-                watchers[name](value);
-            }
         } else {
             variables.Add(name, new Variable(name, type, value));
+        }
+
+        if (watchers.ContainsKey(name)) {
+            watchers[name](value);
         }
     }
 
@@ -113,6 +118,12 @@ public class VariablesSystem {
         }
     }
 
+    public void PrintAll() {
+        foreach (KeyValuePair<string, Variable> variable in variables) {
+            Debug.Log(variable.Key + ": " + variable.Value.GetValue());
+        }
+    }
+
     public static Type GetObjectType(object value) {
         if (value is int) {
             return Type.INT;
@@ -145,6 +156,7 @@ public class StoredVariable {
     }
 
     public object Get() {
+        if (!LevelController.instance.ContainsVariable(name)) return null;
         return LevelController.instance.GetVariable(name);
     }
 
@@ -161,49 +173,66 @@ public class StoredVariable {
     }
 }
 
-public class LevelController : MonoBehaviour {
-    public static LevelController instance;
-    VariablesSystem variables = new VariablesSystem();
+public enum Contexto { Global, Level, LastLevel }
 
-    public string levelName;
+public class LevelController : MonoBehaviour {
+
+    public static LevelController instance;
+    VariablesSystem global = new VariablesSystem();
+    VariablesSystem level = new VariablesSystem();
+    VariablesSystem lastLevel = new VariablesSystem();
 
     void Awake() {
-        instance = this;
+        if (instance == null) {
+            instance = this;
+        } else {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void SetVariable(string name, int value) {
-        variables.SetInt(name, value);
+    public void ChangeLevel(string scene) {
+        Debug.Log("Changing level to " + scene);
+        lastLevel = level;
+        level = new VariablesSystem();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
     }
 
-    public void SetVariable(string name, float value) {
-        variables.SetFloat(name, value);
+    public void PrintVariables(Contexto contexto) {
+        GetContext(contexto).PrintAll();
     }
 
-    public void SetVariable(string name, string value) {
-        variables.SetString(name, value);
+    public void SetVariable(string name, object value, Contexto contexto = Contexto.Global) {
+        GetContext(contexto).SetVariable(name, value);
     }
 
-    public void SetVariable(string name, bool value) {
-        variables.SetBool(name, value);
+    public object GetVariable(string name, Contexto contexto = Contexto.Global) {
+        return GetContext(contexto).GetVariable(name);
     }
 
-    public void SetVariable(string name, object value) {
-        variables.SetVariable(name, value);
-    }
-
-    public object GetVariable(string name) {
-        return variables.GetVariable(name);
-    }
-
-    public bool ContainsVariable(string name) {
-        return variables.Contains(name);
+    public bool ContainsVariable(string name, Contexto contexto = Contexto.Global) {
+        return GetContext(contexto).Contains(name);
     }
     
-    public void Watch(string name, System.Action<object> action) {
-        variables.Watch(name, action);
+    public void Watch(string name, System.Action<object> action, Contexto contexto = Contexto.Global) {
+        GetContext(contexto).Watch(name, action);
     }
 
-    public void Unwatch(string name, System.Action<object> action) {
-        variables.Unwatch(name, action);
+    public void Unwatch(string name, System.Action<object> action, Contexto contexto = Contexto.Global) {
+        GetContext(contexto).Unwatch(name, action);
+    }
+
+    public VariablesSystem GetContext(Contexto contexto) {
+        switch (contexto) {
+            case Contexto.Global:
+                return global;
+            case Contexto.Level:
+                return level;
+            case Contexto.LastLevel:
+                return lastLevel;
+            default:
+                return global;
+        }
     }
 }

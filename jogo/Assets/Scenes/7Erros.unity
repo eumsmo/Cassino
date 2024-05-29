@@ -2980,7 +2980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c0b21e996d83b45b7aa31470548ad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRodadas: 7
+  maxRodadas: 3
   portaNumeroTxt: {fileID: 467907644}
   proximaRodadaTile: {fileID: 1374364947}
   sairTile: {fileID: 1592798427}

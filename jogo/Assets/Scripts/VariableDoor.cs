@@ -5,19 +5,18 @@ using UnityEngine;
 public class VariableDoor : MonoBehaviour {
     public string variableName;
     public bool activateOnTrue = true;
-    public bool startActive = false;
 
 
     void Start() {
-        bool initialStatus = startActive;
-        if (!activateOnTrue) initialStatus = !initialStatus;
-
-
-        StoredVariable porta_entrada = new StoredVariable(variableName, initialStatus);
+        StoredVariable porta_entrada = new StoredVariable(variableName);
         porta_entrada.OnChange((object value) => {
-            Debug.Log("Porta " + variableName + " mudou para " + value);
             StatusChanged((bool)value);
         });
+
+        if (porta_entrada.Get() == null)
+            StatusChanged(false);
+        else
+            StatusChanged((bool)porta_entrada.Get());
     }
 
     public void StatusChanged(bool status) {

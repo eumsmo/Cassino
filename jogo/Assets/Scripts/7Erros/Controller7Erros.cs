@@ -42,15 +42,18 @@ public class Controller7Erros : MonoBehaviour {
     }
 
     void Vitoria() {
-        Debug.Log("Vitoria");
+        LevelController.instance.SetVariable("$return_spot", "vip");
+        LevelController.instance.ChangeLevel("Cena");
     }
 
     void Derrota() {
-        Debug.Log("Derrota");
+        LevelController.instance.SetVariable("$return_spot", "quartos");
+        LevelController.instance.ChangeLevel("Cena");
     }
 
     public void Sair() {
-        Debug.Log("Sair");
+        LevelController.instance.SetVariable("$return_spot", "quartos");
+        LevelController.instance.ChangeLevel("Cena");
     }
 
     public void Proximo() {

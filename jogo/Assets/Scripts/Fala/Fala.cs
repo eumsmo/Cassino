@@ -27,9 +27,15 @@ public class Fala_Acao {
     }
 
     public void Executar() {
-        Debug.Log("Variavel " + nomeVariavel + " setada para " + GetValor());
         LevelController.instance.SetVariable(nomeVariavel, GetValor());
     }
+}
+
+[System.Serializable]
+public class Fala_Escolha {
+    public string texto;
+    public List<Dialogo> falas;
+    int index = 0;
 }
 
 [System.Serializable]
@@ -40,4 +46,7 @@ public class Fala {
 
     public bool hasAcao = false;
     public Fala_Acao acao = null;
+
+    //public bool hasEscolha = false;
+    //public List<Fala_Escolha> escolhas;
 }

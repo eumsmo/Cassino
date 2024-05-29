@@ -18,14 +18,10 @@ public class ConversaCondicional {
     }
 
     public bool PassCondicional() {
-        Debug.Log("Existe?");
         if (!LevelController.instance.ContainsVariable(condicoes.nomeVariavel)) return false;
-        Debug.Log("Existe sim");
-
         object value = LevelController.instance.GetVariable(condicoes.nomeVariavel);
-
-
-        return value == condicoes.GetValor();
+        
+        return value.Equals(condicoes.GetValor());
     }
 }
 

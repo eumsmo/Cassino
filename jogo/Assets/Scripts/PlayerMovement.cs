@@ -27,4 +27,10 @@ public class PlayerMovement : MonoBehaviour {
         if (!characterController.isGrounded) input.y -= gravity;
         characterController.Move(input * movementSpeed * Time.fixedDeltaTime);
     }
+
+    public void Teleport(Vector3 pos) {
+        characterController.enabled = false;
+        transform.position = pos;
+        characterController.enabled = true;
+    }
 }
