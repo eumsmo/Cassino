@@ -7,9 +7,10 @@ struct DirectionStatus {
     public bool isUp;
     public bool isLeft;
     public bool isRight;
+    public bool isInteract;
 
     public bool isMoving() {
-        return isDown || isUp || isLeft || isRight;
+        return isDown || isUp || isLeft || isRight || isInteract;
     }
 
     public Direction GetDirection() {
@@ -17,6 +18,7 @@ struct DirectionStatus {
         if (isUp) return Direction.Up;
         if (isLeft) return Direction.Left;
         if (isRight) return Direction.Right;
+        if (isInteract) return Direction.Interact;
 
         return Direction.None;
     }
@@ -105,9 +107,7 @@ public class PlayerBattle : MonoBehaviour {
     void Update() {
         input = GetDirectionStatus();
         currentState?.Execute();
-    }
 
-    void FixedUpdate() {
         if (!input.isMoving()) return;
 
         Direction direction = input.GetDirection();
@@ -116,10 +116,11 @@ public class PlayerBattle : MonoBehaviour {
 
     DirectionStatus GetDirectionStatus() {
         DirectionStatus status = new DirectionStatus();
-        status.isDown = Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
-        status.isUp = Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W);
-        status.isLeft = Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
-        status.isRight = Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D);
+        status.isDown = Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S);
+        status.isUp = Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W);
+        status.isLeft = Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A);
+        status.isRight = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D);
+        status.isInteract = Input.GetKeyDown(KeyCode.Space);
 
         return status;
     }

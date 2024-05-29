@@ -8,14 +8,14 @@ public class DialogoController : MonoBehaviour {
 
     public System.Action OnDialogoEnd;
 
-    FalaType[] falas;
+    Fala[] falas;
     int index = 0;
 
     void Start() {
         texto.text = "";
     }
 
-    public void StartDialogo(FalaType[] falas) {
+    public void StartDialogo(Fala[] falas) {
         Debug.Log("Iniciando dialogo");
 
         this.falas = falas;
@@ -35,34 +35,16 @@ public class DialogoController : MonoBehaviour {
             return;
         }
 
-        FalaType fala = falas[index];
+        Fala fala = falas[index];
         ProcessarFala(fala);
         index++;
     }
 
-    void ProcessarFala(FalaType fala) {
+    void ProcessarFala(Fala fala) {
+        texto.text = fala.texto;
 
-        switch (fala.tipo) {
-            case FalaType.Tipo.Fala:
-                Fala f = (Fala)fala;
-                texto.text = f.texto;
-                break;
-            case FalaType.Tipo.Escolha:
-                break;
-            case FalaType.Tipo.Acao:
-                FalaAcao acao = (FalaAcao)fala;
-                acao.Executar();
-                break;
-            case FalaType.Tipo.Nada:
-                break;
-            case FalaType.Tipo.Conversor:
-                EditorFalas editor = ((EditorFalas) fala);
-                if (editor.tipoI == FalaType.Tipo.Fala) {
-                    ProcessarFala(editor.fala);
-                } else if (editor.tipoI == FalaType.Tipo.Acao) {
-                    ProcessarFala(editor.acao);
-                }
-                break;
+        if (fala.hasAcao) {
+            fala.acao.Executar();
         }
     }
 

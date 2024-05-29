@@ -16679,91 +16679,68 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: -1.5}
   falas:
   - falas:
-    - tipo: 4
+    - texto: Bem vindo ao Cassino no Fim do Mundo!
       autoNext: 0
-      fala:
-        tipo: 1
-        autoNext: 0
-        texto: Deixa eu
+      hasAcao: 0
       acao:
-        tipo: 3
-        autoNext: 0
-        acao: 1
         tipoVariavel: 0
         nomeVariavel: 
         valorBool: 0
         valorInt: 0
         valorFloat: 0
         valorString: 
-      tipoI: 1
-    - tipo: 4
+    - texto: "Vejo que voc\xEA n\xE3o possui um cart\xE3o de membro, n\xE3o se preocupe,
+        ser\xE1 r\xE1pidinho."
       autoNext: 0
-      fala:
-        tipo: 1
-        autoNext: 0
-        texto: 
+      hasAcao: 0
       acao:
-        tipo: 3
-        autoNext: 1
-        acao: 1
+        tipoVariavel: 0
+        nomeVariavel: 
+        valorBool: 0
+        valorInt: 0
+        valorFloat: 0
+        valorString: 
+    - texto: ...
+      autoNext: 0
+      hasAcao: 0
+      acao:
+        tipoVariavel: 0
+        nomeVariavel: 
+        valorBool: 0
+        valorInt: 0
+        valorFloat: 0
+        valorString: 
+    - texto: "Pronto, voc\xEA est\xE1 livre para entrar no cassino!"
+      autoNext: 0
+      hasAcao: 1
+      acao:
         tipoVariavel: 3
         nomeVariavel: porta_entrada
         valorBool: 1
         valorInt: 0
         valorFloat: 0
         valorString: 
-      tipoI: 3
-    - tipo: 4
+    - texto: Aproveite sua estadia.
       autoNext: 0
-      fala:
-        tipo: 1
-        autoNext: 0
-        texto: Pronto
+      hasAcao: 0
       acao:
-        tipo: 3
-        autoNext: 0
-        acao: 1
         tipoVariavel: 0
         nomeVariavel: 
         valorBool: 0
         valorInt: 0
         valorFloat: 0
         valorString: 
-      tipoI: 1
-    - tipo: 4
+  - falas:
+    - texto: Aproveite sua estadia.
       autoNext: 0
-      fala:
-        tipo: 1
-        autoNext: 0
-        texto: 
+      hasAcao: 0
       acao:
-        tipo: 3
-        autoNext: 1
-        acao: 1
-        tipoVariavel: 3
-        nomeVariavel: porta_entrada
-        valorBool: 0
-        valorInt: 0
-        valorFloat: 0
-        valorString: 
-      tipoI: 3
-    - tipo: 4
-      autoNext: 0
-      fala:
-        tipo: 1
-        autoNext: 0
-        texto: Eita, calma
-      acao:
-        tipo: 3
-        autoNext: 0
-        acao: 1
         tipoVariavel: 0
         nomeVariavel: 
         valorBool: 0
         valorInt: 0
         valorFloat: 0
         valorString: 
-      tipoI: 1
 --- !u!1 &1375561954
 GameObject:
   m_ObjectHideFlags: 0

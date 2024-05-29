@@ -8,7 +8,7 @@ using UnityEditor;
 
 
 public enum ConnectionType { Floor, Gap }
-public enum Direction { None, Up, Down, Left, Right }
+public enum Direction { None, Up, Down, Left, Right, Interact }
 
 [System.Serializable]
 public class Connection {
@@ -34,7 +34,17 @@ public class Tile : MonoBehaviour {
 
     public List<Connection> connections = new List<Connection>();
 
-    public Tile GetConnection(Direction direction) {
+    public virtual Tile GetConnection(Direction direction) {
+        for (int i = 0; i < connections.Count; i++) {
+            if (connections[i].direction == direction) {
+                return connections[i].tile as Tile;
+            }
+        }
+
+        return null;
+    }
+
+    public Tile GetConnectionRaw(Direction direction) {
         for (int i = 0; i < connections.Count; i++) {
             if (connections[i].direction == direction) {
                 return connections[i].tile as Tile;
@@ -133,8 +143,10 @@ public class Tile : MonoBehaviour {
             Tile tile1 = tiles[i];
             Tile tile2 = tiles[i + 1];
             
-            ConnectTiles(tile1, tile2, ConnectionType.Floor, Direction.Right);
-            ConnectTiles(tile2, tile1, ConnectionType.Floor, Direction.Left);
+            if (tile1.GetConnectionRaw(Direction.Right) == null) 
+                ConnectTiles(tile1, tile2, ConnectionType.Floor, Direction.Right);
+            if (tile2.GetConnectionRaw(Direction.Left) == null) 
+                ConnectTiles(tile2, tile1, ConnectionType.Floor, Direction.Left);
 
             // Set dirty
             EditorUtility.SetDirty(tile1);
@@ -155,8 +167,10 @@ public class Tile : MonoBehaviour {
             Tile tile1 = tiles[i];
             Tile tile2 = tiles[i + 1];
             
-            ConnectTiles(tile1, tile2, ConnectionType.Floor, Direction.Up);
-            ConnectTiles(tile2, tile1, ConnectionType.Floor, Direction.Down);
+            if (tile1.GetConnectionRaw(Direction.Up) == null) 
+                ConnectTiles(tile1, tile2, ConnectionType.Floor, Direction.Up);
+            if (tile2.GetConnectionRaw(Direction.Down) == null) 
+                ConnectTiles(tile2, tile1, ConnectionType.Floor, Direction.Down);
 
             // Set dirty
             EditorUtility.SetDirty(tile1);
