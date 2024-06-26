@@ -14,6 +14,10 @@ public class Controller7Erros : MonoBehaviour {
     public Tile proximaRodadaTile, sairTile;
     public Battle_Porta porta;
 
+    [Header("Chance de erro")]
+    public float[] chances;
+    ErroController erroController;
+
     void Start() {
         startTile = BattleManager.instance.player.GetComponent<PlayerBattle>().currentTile;
         startDirection = BattleManager.instance.player.GetComponent<FPPlayer>().facingDirection;
@@ -23,6 +27,8 @@ public class Controller7Erros : MonoBehaviour {
 
         TileInteragivel sairInteract = sairTile.GetComponent<TileInteragivel>();
         sairInteract.onInteract += Sair;
+
+        erroController = GetComponent<ErroController>();
 
         NovaRodada();
     }
@@ -39,6 +45,20 @@ public class Controller7Erros : MonoBehaviour {
         FPPlayer player = BattleManager.instance.player.GetComponent<FPPlayer>();
         player.Teleport(startTile, startDirection);
         porta.FecharInstant();
+        erroController.ClearErro();
+
+        TentarGerarErro(rodadaAtual);
+    }
+
+    void TentarGerarErro(int rodada) {
+        float chance = chances[rodada];
+        float rand = Random.Range(0, 1.0f);
+
+        Debug.Log("chance: " + chance + " rand: " + rand + " res: " + (rand < chance));
+        if (rand < chance) {
+            
+            erroController.GerarErro();
+        }
     }
 
     void Vitoria() {

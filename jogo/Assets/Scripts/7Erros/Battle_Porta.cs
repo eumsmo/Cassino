@@ -28,10 +28,10 @@ public class Battle_Porta : MonoBehaviour {
         if (!transitioning) return;
 
         //Smoothly rotate towards the target point.
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * speed);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(targetRotation), Time.deltaTime * speed);
 
-        if (Quaternion.Angle(transform.rotation, Quaternion.Euler(targetRotation)) < 1) {
-            transform.rotation = Quaternion.Euler(targetRotation);
+        if (Quaternion.Angle(transform.localRotation, Quaternion.Euler(targetRotation)) < 1) {
+            transform.localRotation = Quaternion.Euler(targetRotation);
             transitioning = false;
         }
     }
@@ -76,6 +76,6 @@ public class Battle_Porta : MonoBehaviour {
         targetRotation = new Vector3(0, 0, 0);
         transitioning = false;
 
-        transform.rotation = Quaternion.Euler(targetRotation);
+        transform.localRotation = Quaternion.Euler(targetRotation);
     }
 }
