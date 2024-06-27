@@ -9,11 +9,11 @@ public class TileInteragivel : MonoBehaviour {
 
     public bool isFP = true;
 
-    public void Interact() {
+    public bool Interact() {
         if (isFP) {
             FPPlayer player = BattleManager.instance.player.GetComponent<FPPlayer>();
             if (player.facingDirection != direction) {
-                return;
+                return false;
             }
         }
         
@@ -21,6 +21,9 @@ public class TileInteragivel : MonoBehaviour {
         if (onInteract != null) {
             ultimoTileInteragivel = this;
             onInteract();
+            return true;
         }
+
+        return false;
     }
 }

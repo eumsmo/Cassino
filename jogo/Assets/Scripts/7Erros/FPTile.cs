@@ -12,9 +12,8 @@ public class FPTile : Tile {
             return base.GetConnection(facingDirection);
         } else if (direction == Direction.Interact) {
             TileInteragivel tileInteragivel = GetComponent<TileInteragivel>();
-            if (tileInteragivel != null) {
-                tileInteragivel.Interact();
-            }
+            if (tileInteragivel == null || !tileInteragivel.Interact())
+                Controller7Erros.instance.GetInteraction(this);
         }
 
         return null;

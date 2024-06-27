@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+public struct TileDirectionRelation {
+    public Tile tile;
+    public Direction direction;
+}
+
+
+[System.Serializable]
 public class ErroInfo {
     public Transform spawnAt;
     public GameObject[] hideObjects;
     public GameObject prefab;
-    public Tile cleanTile;
-    public Direction cleanDirection;
+    public TileDirectionRelation[] clean;
 }
 
 public class ErroController : MonoBehaviour {
@@ -65,9 +71,14 @@ public class ErroController : MonoBehaviour {
     }
 
     public bool TryClearAt(Tile tile, Direction dir) {
-        if (tile == currentErro.cleanTile && dir == currentErro.cleanDirection) {
-            cleared = true;
-            ClearErro();
+        if (currentErro == null) return false;
+
+        for (int i = 0; i < currentErro.clean.Length; i++) {
+            if (currentErro.clean[i].tile == tile && currentErro.clean[i].direction == dir) {
+                ClearErro();
+                cleared = true;
+                return true;
+            }
         }
 
         return cleared;
