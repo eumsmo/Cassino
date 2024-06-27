@@ -64,6 +64,7 @@ public class BattleUI : MonoBehaviour {
 
     void Voltar() {
         LevelController.instance.SetVariable("$return_spot", "boss");
+        LevelController.instance.SetVariable("derrotou_chefe", true);
         LevelController.instance.ChangeLevel("Cena");
     }
 

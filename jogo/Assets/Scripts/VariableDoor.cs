@@ -9,9 +9,7 @@ public class VariableDoor : MonoBehaviour {
 
     void Start() {
         StoredVariable porta_entrada = new StoredVariable(variableName);
-        porta_entrada.OnChange((object value) => {
-            StatusChanged((bool)value);
-        });
+        porta_entrada.OnChange(StatusChange);
 
         if (porta_entrada.Get() == null)
             StatusChanged(false);
@@ -19,8 +17,19 @@ public class VariableDoor : MonoBehaviour {
             StatusChanged((bool)porta_entrada.Get());
     }
 
+    public void StatusChange(object value) {
+        StatusChanged((bool)value);
+    }
+
     public void StatusChanged(bool status) {
+        if (gameObject == null) return;
+
         bool active = status == activateOnTrue;
         gameObject.SetActive(!active);
+    }
+
+    void OnDestroy() {
+        StoredVariable porta_entrada = new StoredVariable(variableName);
+        porta_entrada.StopChange(StatusChange);
     }
 }

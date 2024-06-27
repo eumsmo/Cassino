@@ -56,7 +56,10 @@ public class VariablesSystem {
         }
 
         if (watchers.ContainsKey(name)) {
-            watchers[name](value);
+            if (watchers[name] == null || watchers[name].GetInvocationList().Length == 0) {
+                watchers.Remove(name);
+            } else
+                watchers[name](value);
         }
     }
 
@@ -105,6 +108,7 @@ public class VariablesSystem {
     }
 
     public void Watch(string name, System.Action<object> action) {
+        Debug.Log("Watching " + name);
         if (watchers.ContainsKey(name)) {
             watchers[name] += action;
         } else {

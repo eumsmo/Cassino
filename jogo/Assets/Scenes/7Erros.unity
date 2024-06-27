@@ -2533,7 +2533,7 @@ MonoBehaviour:
   currentTile: {fileID: 1592798427}
   targetTile: {fileID: 0}
   speed: 10
-  stoppingDistance: 0.1
+  stoppingDistance: 0.2
 --- !u!114 &823143431
 MonoBehaviour:
   m_ObjectHideFlags: 0

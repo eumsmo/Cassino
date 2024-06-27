@@ -11,12 +11,34 @@ public class Carta : MonoBehaviour {
 
     public Text valorText1, valorText2;
 
+    public GameObject copas, ouros, paus, espadas;
+
     void Start() {
         valor = valores[Random.Range(0, valores.Length)];
         naipe = naipes[Random.Range(0, naipes.Length)];
 
         valorText1.text = valor;
         valorText2.text = valor;
+
+        paus.SetActive(false);
+        ouros.SetActive(false);
+        copas.SetActive(false);
+        espadas.SetActive(false);
+
+        switch (naipe) {
+            case "Paus":
+                paus.SetActive(true);
+                break;
+            case "Ouros":
+                ouros.SetActive(true);
+                break;
+            case "Copas":
+                copas.SetActive(true);
+                break;
+            case "Espadas":
+                espadas.SetActive(true);
+                break;
+        }
     }
 
     void OnTriggerEnter(Collider other) {
